@@ -89,14 +89,11 @@ const Comments = ({ comments, title, city }) => {
             id={comment.id}
             callback={callbackRerender}
           />
-          <button onClick={() => {setRerender(!rerender); deleteComment(comment.id)}}>Delete</button>
-
-  
+          <button onClick={() => {deleteComment(comment.id); setRerender(!rerender)}}>Delete</button>
           </Fragment>
         ))
       );
       setCantidad(data.cantidad);
-
       console.log(data.comments[0].comments);
       console.log(data.cantidad);
     });

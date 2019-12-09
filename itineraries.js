@@ -35,7 +35,7 @@ user: {
     type: Array
   },
   comments: {
-    type: Array
+    type: Array 
   },
   likes: {
       type: Array
@@ -43,20 +43,3 @@ user: {
 });
 
 module.exports = Itinerary = mongoose.model("Itinerary", ItinerarySchema);
-
-var newItinerary = new Itinerary({
-  title: "viajecito",
-  ProfilePic: "fotito",
-  rating: 100,
-  duration: 20,
-  price: 0,
-  hashtag: [0, 1, 1, 2]
-});
-
-console.log(
-  newItinerary.title,
-  newItinerary.ProfilePic,
-  newItinerary.rating,
-  newItinerary.duration,
-  newItinerary.price
-);

@@ -66,14 +66,14 @@ router.put("/api/itineraries/byTitle/:title/comments", async (req, res) => {
 });
 
 
-router.put("/api/itineraries/byTitle/:title/comments/update", async (req, res) => {
+// router.put("/api/itineraries/byTitle/:title/comments/update", async (req, res) => {
 
-  await itinerary.updateOne(
-    { title: req.params.title, "comments.id": req.body.id}, 
-    { $set: {"comments.$.text": req.body.text}}
-  )
-  res.json(req.body.text);
-});
+//   await itinerary.updateOne(
+//     { title: req.params.title, "comments.id": req.body.id}, 
+//     { $set: {"comments.$.text": req.body.text}}
+//   )
+//   res.json(req.body.text);
+// });
 
 
 //Rutas Likes 

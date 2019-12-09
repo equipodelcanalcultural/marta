@@ -26,7 +26,7 @@ const RegisterError =(props)=>{
               Try Again
             </Button>
             <Button variant="primary" onClick={handleClose} >
-             <a id="savechang"href="/">Go to home page</a>
+             <a id="savechang">Go to home page</a>
             </Button>
           </Modal.Footer>
         </Modal>
