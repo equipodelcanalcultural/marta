@@ -106,7 +106,7 @@ class UserItinerary extends Component {
                 <div className="row w-100">
                   <div className="col-4 p-0 m-0">
                     {" "}
-                    <IconButton {...this.props}/><h3>{likes}</h3>
+                    <IconButton {...this.props}/>
                   </div>
                   <div className="col-4 p-0 m-0">
                     <Duration className="duration" duration={duration} />
