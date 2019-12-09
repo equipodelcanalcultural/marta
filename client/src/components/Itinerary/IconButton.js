@@ -13,7 +13,6 @@
     };
   };
 
-
   const IconButton = props => {
 
       
@@ -26,7 +25,7 @@
       <>
   
       
-          <Button className="" onClick={ () => getData(`/api/itineraries/byTitle/${props.title}/likes`, {
+          <Button className="" variant="link" onClick={ () => getData(`/api/itineraries/byTitle/${props.title}/likes`, {
           method: "PUT",
           body: JSON.stringify({
             username: {user}
@@ -36,11 +35,11 @@
           }
         },(response) => console.log(response))}>
 
-            <Octicon icon={Thumbsup}/>
+            <Octicon icon={Thumbsup} size="small" />
        
         
       </Button>
-            <Button className="" onClick={  () => getData(`/api/itineraries/byTitle/${props.title}/dislikes`, {
+            <Button className=""  variant="link" onClick={  () => getData(`/api/itineraries/byTitle/${props.title}/dislikes`, {
             method: "PUT",
             body: JSON.stringify({
               username: {user}
