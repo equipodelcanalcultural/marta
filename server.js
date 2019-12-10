@@ -11,7 +11,7 @@ const putRoutes = require("./Routes/put");
 const database = require('./database');
 const passport = require('passport');
 const deleteRoutes = require("./Routes/delete");
-
+const path = require('path');
 //passport middleware
 app.use(passport.initialize());
 //passport configuration
@@ -23,3 +23,9 @@ app.listen(port, () => console.log(`server running on port ${port}`));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", [getRoutes,postRoutes, putRoutes, deleteRoutes]);
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'))
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(_dirname + "/client/build/index.html"))
+    })
+}

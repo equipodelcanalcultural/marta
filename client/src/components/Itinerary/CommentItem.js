@@ -27,7 +27,7 @@ export const CommentItem = ({
       {
         method: "PUT",
         body: JSON.stringify({
-          id: id,
+          _id: id,
           text: input
         }),
         headers: {

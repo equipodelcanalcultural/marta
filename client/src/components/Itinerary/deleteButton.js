@@ -13,7 +13,7 @@ import { CommentItem } from "./CommentItem";
           {
             method: "DELETE",
             body: JSON.stringify({
-              id: id
+              _id: id
             }),
             headers: {
               "Content-Type": "application/json"

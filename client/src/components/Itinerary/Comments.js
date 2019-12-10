@@ -36,21 +36,7 @@ const Comments = ({ comments, title, city, logged, user }) => {
     );
   };
 
-  const deleteComment = _id => {
-    getData(
-      `/api/itineraries/byTitle/${title}/comments/delete`,
-      {
-        method: "DELETE",
-        body: JSON.stringify({
-        _id: _id
-        }),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      },
-      () => setRerender(false)
-    );
-  };
+  
 
   const callbackRerender = value => {
     setRerender(!rerender);

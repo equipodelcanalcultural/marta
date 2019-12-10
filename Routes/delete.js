@@ -8,7 +8,7 @@ router.delete("/api/itineraries/byTitle/:title/comments/delete", async (req, res
 
     await itinerary.update(
       { title: req.params.title}, 
-      { $pull: {comments: {id: req.body.id}}}
+      { $pull: {comments: {_id: req.body._id}}}
     )
     res.json("OK");
   });

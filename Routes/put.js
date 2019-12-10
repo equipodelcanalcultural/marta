@@ -70,7 +70,7 @@ router.put("/api/itineraries/byTitle/:title/comments", async (req, res) => {
 router.put("/api/itineraries/byTitle/:title/comments/update", async (req, res) => {
 
   await itinerary.updateOne(
-    { title: req.params.title, "comments.id": req.body.id}, 
+    { title: req.params.title, "comments._id": req.body._id}, 
     { $set: {"comments.$.text": req.body.text}}
   )
   res.json(req.body.text);
