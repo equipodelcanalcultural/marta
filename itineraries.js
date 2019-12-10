@@ -35,7 +35,7 @@ user: {
     type: Array
   },
   comments: {
-    type: Array
+    type: Array,
   },
   likes: {
       type: Array

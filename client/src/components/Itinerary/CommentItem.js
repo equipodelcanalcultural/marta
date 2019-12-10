@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 import { getData } from "../../store/actions/reduxFetch";
 import CommentInput from "./commentInput";
+import DeleteButton from './deleteButton';
 
 export const CommentItem = ({
   username,
@@ -9,7 +10,10 @@ export const CommentItem = ({
   id,
   title,
   cantidad,
-  callback
+  callback,
+  logged, 
+  usuarioActual,
+  deleteComment
 }) => {
   const [lastcomment, setLastcomment] = useState(text);
   const [element, setElement] = useState();
@@ -37,33 +41,32 @@ export const CommentItem = ({
       }
     );
   };
-  // const deleteComment = target => {
-  //   getData(
-  //     `/api/itineraries/byTitle/${title}/comments/delete`,
-  //     {
-  //       method: "PUT",
-  //       body: JSON.stringify({
-  //         id: target
-  //       }),
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       }
-  //     },
-  //     () => callback(false)
-  //   );
-  // };
+
+console.log(logged)
+console.log(usuarioActual)
+console.log(username)
+  let editButton;
+  let deleteButton; 
+  if (logged && usuarioActual == username) {
+    editButton =   <button
+    onClick={() => {
+      setElement(editInput);
+      console.log(id);
+    }}
+  >
+    Edit
+  </button>
+  deleteButton = <DeleteButton id={id} title={title} callback={callback}/>
+  } 
+
+ 
+
 
   const regularInput = (
     <div>
       <span>{lastcomment}</span>
-      <button
-        onClick={() => {
-          setElement(editInput);
-          console.log(id);
-        }}
-      >
-        Edit
-      </button>
+      {editButton}
+      {deleteButton}
     </div>
   );
 

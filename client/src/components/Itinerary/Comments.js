@@ -1,40 +1,23 @@
 import React, { Fragment } from "react";
-// import Form from "react-bootstrap/Form";
-// import Button from "react-bootstrap/Button";
 import { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { getData } from "../../store/actions/reduxFetch";
 import CommentInput from "./commentInput";
-// import { EditButton } from "./editButton";
 import { CommentItem } from "./CommentItem";
-// import { Link } from "react-router-dom";
+import DeleteButton from "./deleteButton";
+import CommentList from "./commentList";
 
-const Comments = ({ comments, title, city }) => {
+const mapStateToProps = state => {
+  return {
+    logged: state.user.logged,
+    user: state.user.currentUser.username
+  };
+};
+
+const Comments = ({ comments, title, city, logged, user }) => {
   const [posts, setPosts] = useState();
   const [rerender, setRerender] = useState(false);
   const [cantidad, setCantidad] = useState();
-  // const [toUpdate, setToUpdate] = useState();
-  // const [textBox, setTextBox] = useState();
-
-  // const unBlockRerender = () => {
-  //   setRerender(!rerender);
-  // };
-  // const comentar = (uri, id, input) => {
-  //   getData(
-  //     uri,
-  //     {
-  //       method: "PUT",
-  //       body: JSON.stringify({
-  //         username: "Anonymous",
-  //         id: id,
-  //         text: input
-  //       }),
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       }
-  //     },
-  //     () => setRerender(!rerender)
-  //   );
-  // };
 
   const createComment = input => {
     getData(
@@ -42,8 +25,7 @@ const Comments = ({ comments, title, city }) => {
       {
         method: "PUT",
         body: JSON.stringify({
-          username: "Anonymous",
-          id: `${title}#${cantidad}`,
+          username: user,
           text: input
         }),
         headers: {
@@ -54,13 +36,13 @@ const Comments = ({ comments, title, city }) => {
     );
   };
 
-  const deleteComment = id => {
+  const deleteComment = _id => {
     getData(
       `/api/itineraries/byTitle/${title}/comments/delete`,
       {
         method: "DELETE",
         body: JSON.stringify({
-          id: id
+        _id: _id
         }),
         headers: {
           "Content-Type": "application/json"
@@ -71,27 +53,27 @@ const Comments = ({ comments, title, city }) => {
   };
 
   const callbackRerender = value => {
-    setRerender(value)
+    setRerender(!rerender);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     // Actualiza el título del documento usando la API del navegador
-    getData(`/api/itineraries/byTitle/${title}/comments`, null, data =>  {
+    getData(`/api/itineraries/byTitle/${title}/comments`, null, data => {
       setPosts(
         data.comments[0].comments.map((comment, index) => (
           <Fragment>
-          <CommentItem
-            key={`key#${title}#${index}`}
-            cantidad={cantidad}
-            title={title}
-            username={comment.username}
-            text={comment.text}
-            id={comment.id}
-            callback={callbackRerender}
-          />
-          <button onClick={() => {setRerender(!rerender); deleteComment(comment.id)}}>Delete</button>
-
-  
+            <CommentItem
+              key={`key#${title}#${index}`}
+              cantidad={cantidad}
+              title={title}
+              username={comment.username}
+              text={comment.text}
+              id={comment.id}
+              callback={callbackRerender}
+              logged ={logged}
+              usuarioActual = {user}
+            />
+        
           </Fragment>
         ))
       );
@@ -100,27 +82,49 @@ const Comments = ({ comments, title, city }) => {
       console.log(data.comments[0].comments);
       console.log(data.cantidad);
     });
+  }, [!rerender]);*/
+
+  useEffect(() => {
+    // Actualiza el título del documento usando la API del navegador
+    getData(`/api/itineraries/byTitle/${title}/comments`, null, data => {
+      setPosts(data.comments[0].comments);
+    });
   }, [!rerender]);
 
+  let commentList;
+  if (posts != null) {
+    commentList = <CommentList comments={posts} callback={callbackRerender} logged ={logged}
+    usuarioActual = {user} title={title} />
+  }
+
+  let commentTextBox;
+  if (logged) {
+    commentTextBox = (
+      <CommentInput
+        cantidad={cantidad}
+        title={title}
+        callback={createComment}
+        placeholder={"Leave your comment"}
+      ></CommentInput>
+    );
+  } else {
+    commentTextBox = (
+      <div>
+        <span>Log in to comment</span>
+      </div>
+    );
+  }
+console.log(posts)
+console.log(commentList)
   return (
     <div>
       <div>
-        {posts}
-
-        <CommentInput
-          cantidad={cantidad}
-          title={title}
-          callback={createComment}
-          placeholder={"Leave your comment"}
-        ></CommentInput>
-
-        <div id="likeAdder"></div>
-        <ul id="comments">
-          {comments.map(comment => <li color="#fff">{comment}</li>) || comments}
-        </ul>
+        {commentList}
+        {commentTextBox}
+      
       </div>
     </div>
   );
 };
-export default Comments;
 
+export default connect(mapStateToProps)(Comments);

@@ -11,6 +11,7 @@ const jwt = require("jsonwebtoken");
 const config = require("../config");
 const secretOrKey = config.secretOrKey;
 const passport = require("passport");
+var ObjectID = require('mongodb').ObjectID;
 
 module.exports = router.put("/api/users/:username", async (req, res) => {
   await user.updateOne(
@@ -54,7 +55,7 @@ router.put("/api/itineraries/byTitle/:title", function(req, res) {
 
 router.put("/api/itineraries/byTitle/:title/comments", async (req, res) => {
   let comment = {
-    id: req.body.id,
+    _id: new ObjectID(),
     username: req.body.username,
     text: req.body.text
   }
