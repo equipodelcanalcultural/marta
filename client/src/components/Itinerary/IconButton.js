@@ -7,13 +7,14 @@ import Heart from "./Heart";
 
 const mapStateToProps = state => {
   return {
+    logged: state.user.logged,
     user: state.user.currentUser.email,
     itinLiked: state.user.currentUser.itinerariesLiked,
     itineraries: state.itineraries.itineraries[0].likes
   };
 };
 
-const IconButton = ({ title, user, itinLiked, itineraries }) => {
+const IconButton = ({ title, logged, user, itinLiked, itineraries }) => {
   const [likes, setLikes] = useState();
   const [refresh, setRefresh] = useState(false);
 
@@ -28,11 +29,7 @@ const IconButton = ({ title, user, itinLiked, itineraries }) => {
     });
   });
 
-  let polaridades;
-  if (! itineraries.includes(user)) {
-    polaridades = { positivo: "likes", negativo: "dislikes" };
-  } else polaridades = { positivo: "dislikes", negativo: "likes" };
-  console.log(polaridades);
+  
 
   const request = polaridad =>
     getData(
@@ -51,13 +48,25 @@ const IconButton = ({ title, user, itinLiked, itineraries }) => {
         setRefresh(!refresh);
       }
     );
+    
+    let polaridades;
+    if (! itineraries.includes(user)) {
+      polaridades = { positivo: "likes", negativo: "dislikes" };
+    } else polaridades = { positivo: "dislikes", negativo: "likes" };
+    console.log(polaridades);
+    
+    let likeButton;
+    if (logged) { 
+      likeButton = ( <Heart callback={request} positivo={polaridades.positivo
+      } negativo={polaridades.negativo} />)
+    } else {likeButton = <span>Login to like</span>}
+  
+   
 
   return (
     <>
-      {" "}
       <div className="col-4 p-0 m-0">
-        <Heart callback={request} positivo={polaridades.positivo
-        } negativo={polaridades.negativo} />
+        {likeButton}
         <h3>{likes}</h3>
       </div>
     </>
