@@ -23,11 +23,10 @@ export const CommentItem = ({
     console.log("update comment");
     console.log(id);
     getData(
-      `/api/itineraries/byTitle/${title}/comments/update`,
+      `/api/itineraries/byTitle/${title}/comments/update/${id}`,
       {
         method: "PUT",
         body: JSON.stringify({
-          _id: id,
           text: input
         }),
         headers: {
@@ -41,7 +40,7 @@ export const CommentItem = ({
       }
     );
   };
-
+console.log(id)
 console.log(logged)
 console.log(usuarioActual)
 console.log(username)

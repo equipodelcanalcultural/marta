@@ -172,7 +172,7 @@ const genericGetAll = (uri, model) => {
   });
   router.get("/api/comments/id", async (req, res) => {
     itinerary
-      .find({comments: {$exists: true, $not: {$size: 0}} }, { comments: {$elemMatch: {id: req.body.id}} })
+      .find({comments: {$exists: true, $not: {$size: 0}} }, { comments: {$elemMatch: {_id: req.body._id}} })
       .then(items => res.json(items));
   });
 

@@ -9,11 +9,10 @@ import { CommentItem } from "./CommentItem";
  const DeleteButton = ({id, callback, title}) => {
     const deleteComment = id => {
         getData(
-          `/api/itineraries/byTitle/${title}/comments/delete`,
+          `/api/itineraries/byTitle/${title}/comments/delete/${id}`,
           {
             method: "DELETE",
             body: JSON.stringify({
-              _id: id
             }),
             headers: {
               "Content-Type": "application/json"
