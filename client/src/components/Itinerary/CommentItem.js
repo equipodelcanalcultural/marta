@@ -15,7 +15,7 @@ export const CommentItem = ({
   usuarioActual,
   deleteComment
 }) => {
-  const [lastcomment, setLastcomment] = useState(text);
+  const [lastcomment, setLastcomment] = useState(text); //Borrar este hook, es contraproducente
   const [element, setElement] = useState();
   const [rerender, setRerender] = useState(false);
 
@@ -35,7 +35,7 @@ export const CommentItem = ({
       },
       res => {
         setElement(regularInput);
-        setLastcomment(res);
+       // setLastcomment(res);
         console.log(lastcomment);
       }
     );
@@ -44,7 +44,9 @@ console.log(id)
 console.log(logged)
 console.log(usuarioActual)
 console.log(username)
-  let editButton;
+  
+
+let editButton;
   let deleteButton; 
   if (logged && usuarioActual == username) {
     editButton =   <button
@@ -63,7 +65,7 @@ console.log(username)
 
   const regularInput = (
     <div>
-      <span>{lastcomment}</span>
+      <span>{text}</span>
       {editButton}
       {deleteButton}
     </div>
@@ -76,12 +78,13 @@ console.log(username)
     }
     setElement(regularInput);
   };
+  
   const editInput = (
     <div className="row justify-content-center">
       <CommentInput
         cantidad={cantidad}
         title={title}
-        placeholder={lastcomment}
+        placeholder={text}
         callback={seElementRernderandLastComment}
         id={id}
       ></CommentInput>
@@ -97,7 +100,7 @@ console.log(username)
 
   useEffect(() => {
     setElement(regularInput);
-    updateComment(lastcomment);
+    updateComment(text);
   }, [!rerender]);
 
   return (

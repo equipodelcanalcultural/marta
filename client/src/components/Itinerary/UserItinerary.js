@@ -16,6 +16,7 @@ import unbar from "../../Assets/itinerary_img/unbar.jpeg";
 import manfan from "../../Assets/itinerary_img/manfan.jpeg";
 import mercado from "../../Assets/itinerary_img/mercado.jpeg";
 import IconButton from './IconButton';
+import CommentsContainer from './Comments/commentsContainer';
 import {
   requestItineraries,
   requestItinerariesSuccess,
@@ -29,7 +30,9 @@ const mapStateToProps = state => {
   return {
     itineraries: state.itineraries.itineraries,
     myActivities: state.itineraries.activities,
-    comments: state.itineraries.comments
+    comments: state.itineraries.comments,
+    logged: state.user.logged,
+    user: state.user.currentUser.username
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -68,7 +71,9 @@ class UserItinerary extends Component {
       hashtags,
       comments,
       action,
-      city
+      city,
+      logged,
+      user
     } = this.props;
     // const { requestActivities } = this.props;
     // const { myActivities } = this.props;
@@ -106,7 +111,7 @@ class UserItinerary extends Component {
                 <div className="row w-100">
                   <div className="col-4 p-0 m-0">
                     {" "}
-                    <IconButton {...this.props}/>
+                   
                   </div>
                   <div className="col-4 p-0 m-0">
                     <Duration className="duration" duration={duration} />
@@ -126,7 +131,7 @@ class UserItinerary extends Component {
               </div>
             </div>
             <div className="p-2">
-            <Activities title={title} />
+       
               {/* <Carousel
                 className="d-inline-block col-sm-10 container"
                 slideWidth={0.5}
@@ -166,17 +171,11 @@ class UserItinerary extends Component {
               <FaIconPack className="toggleDeco mr-2 row" font-size="7vh" />
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0">
-              <div>
-                <Comments
-                  comments={comments}
-                  title={title}
-                  action={action}
-                  city={city}
-                />
-              </div>
+            <CommentsContainer logged={logged} user={user} title={title}/>
             </Accordion.Collapse>
           </Accordion>
         </div>
+      
       </Fragment>
     );
   }
