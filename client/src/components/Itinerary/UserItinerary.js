@@ -171,7 +171,7 @@ class UserItinerary extends Component {
               <FaIconPack className="toggleDeco mr-2 row" font-size="7vh" />
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0">
-            <CommentsContainer logged={logged} user={user} title={title}/>
+            <CommentsContainer logged={true} user={'JoJo'} title={title}/>
             </Accordion.Collapse>
           </Accordion>
         </div>
