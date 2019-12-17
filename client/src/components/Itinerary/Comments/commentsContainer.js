@@ -1,59 +1,57 @@
 import React, { Fragment } from "react";
-import { Component } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getData } from "../../../store/actions/reduxFetch";
 import CommentList from "./commentList";
 import CommentItem from "./commentItem";
 import CommentInput from "./commentInput";
+import {Link} from 'react-router-dom'
 
-class CommentsContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: [],
-      rerender: 0
-    };
-  
-  }
-
-  /*Props: título del itinerario, datos de usuario, estado del usuario*/
-
+const CommentsContainer = (props) => {
+  const [posts, setPosts] = useState(); /*State Hooks*/
+const { /*Props: título del itinerario, datos de usuario, estado del usuario*/
+  title,
+  logged,
+  user,
+  navigation
+} = props
+console.log(props, "adentro de commentContainer")
   /*Funciones de requests: las funciones de Create, Update y Delete llaman a la función de Read
-  para actualizar el hook posts; el container las pasa a sus hijos como callbacks*/
+    para actualizar el hook posts; el container las pasa a sus hijos como callbacks*/
 
-
- 
-
-
-  getComments = () => {
-    getData(`/api/itineraries/byTitle/${this.props.title}/comments`, null, data => {
-      let myData = data.comments[0].comments;
-      this.setState({posts: myData})
-    });
+  const getComments = () => {
+    getData(
+      `/api/itineraries/byTitle/${title}/comments`,
+      null,
+      data => {
+        setPosts(data.comments[0].comments);
+        console.log(data + ' hola')
+      }
+    );
   };
 
-  createComment = input => {
+  const createComment = input => {
     getData(
-      `/api/itineraries/byTitle/${this.props.title}/comments`,
+      `/api/itineraries/byTitle/${title}/comments`,
       {
         method: "PUT",
         body: JSON.stringify({
-          username: this.props.user,
+          username: user,
           text: input
         }),
         headers: {
           "Content-Type": "application/json"
         }
       },
-      () => this.getComments()
+      () => getComments()
     );
   };
 
-  updateComment = (input, id) => {
-    
+  const updateComment = (input, id) => {
+    console.log("update comment");
     console.log(id);
     getData(
-      `/api/itineraries/byTitle/${this.props.title}/comments/update/${id}`,
+      `/api/itineraries/byTitle/${title}/comments/update/${id}`,
       {
         method: "PUT",
         body: JSON.stringify({
@@ -63,13 +61,12 @@ class CommentsContainer extends Component {
           "Content-Type": "application/json"
         }
       },
-      () => console.log("update comment")
+      () => console.log('updatecomment')
     );
   };
-
-  deleteComment = id => {
+  const deleteComment = id => {
     getData(
-      `/api/itineraries/byTitle/${this.props.title}/comments/delete/${id}`,
+      `/api/itineraries/byTitle/${title}/comments/delete/${id}`,
       {
         method: "DELETE",
         body: JSON.stringify({}),
@@ -77,80 +74,57 @@ class CommentsContainer extends Component {
           "Content-Type": "application/json"
         }
       },
-      () => console.log('deleted'))
-
+      () => console.log('deletecomment')
+    );
   };
-
+  useEffect(() => {getComments()}, []);
   /*Variables para render condicional*/
   /*Si posts es no-nulo, <CommentList> recibe los posts y los mapea*/
 
-  /*let commentList;
+  let commentList;
   if (posts != null) {
+    console.log('hay posts')
     commentList = (
       <CommentList
-      posts={posts}
-      title={title}
-      logged={logged}
-      user={user} 
+        posts={posts}
+        title={title}
+        logged={logged}
+        user={user}
         updateComment={updateComment}
         deleteComment={deleteComment}
       />
     );
   }
-*/
+  /*Si estás loggeado aparece el textbox de input*/
+  let commentTextBox;
+  if (logged) {
+    commentTextBox = (
+      <CommentInput
+        title={title}
+        callback={createComment}
+        placeholder={"Leave your comment"}
+      ></CommentInput>
+    );
+  } else {
+    commentTextBox = (
+      <div>
 
-componentDidMount() {
-    this.getComments()
-}
-
-  render() {
-    
-    let commentList;
-
-    if (this.state.posts != null) {
-      commentList = this.state.posts.map((comment, index) => (
-        <CommentItem
-          key={`key#${this.state.title}#${index}`}
-          title={this.state.title}
-          username={comment.username}
-          text={comment.text}
-          id={comment.id}
-          updateComment={this.updateComment}
-          deleteComment={this.deleteComment}
-          logged={this.props.logged}
-          currentUser={this.props.user}
-        />
-      ));
-    }
-
-    /*Si estás loggeado aparece el textbox de input*/
-    let commentTextBox;
-    if (this.props.logged) {
-      commentTextBox = (
-        <CommentInput
-          title={this.state.title}
-          callback={this.createComment}
-          placeholder={"Leave your comment"}
-        ></CommentInput>
-      );
-    } else {
-      commentTextBox = (
-        <div>
-          <span>Log in to comment</span>
-        </div>
-      );
-    }
-
-    console.log(this.state.posts);
-
-    //index = a.findIndex(x => x.prop2 ==="yutu")
-    return (
-      <Fragment>
-        {commentList}
-        {commentTextBox}
-      </Fragment>
+        <Link to='Login'>
+        Log in to comment
+        </Link>
+      </div>
     );
   }
-}
+
+  return (
+    <Fragment>
+      {commentList}
+      {commentTextBox}
+    </Fragment>
+  );
+};
+
+//export default connect(mapStateToProps)(CommentsContainer);
 
 export default CommentsContainer;
+
