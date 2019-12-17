@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Alert from 'react-bootstrap/Alert';
 
 const RegisterSuccess =(props)=>{ 
 
         const[show,setShow]= useState(true);
-        const handleClose = () => setShow(false);
+       let handleClose =()=>{setShow(false);}
+        const handleShow = ()=>{setShow(true);}  
 
         const cerrar = () => {
             setShow(false)
@@ -13,20 +14,19 @@ const RegisterSuccess =(props)=>{
         }
 
         return (
-            <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Welcome to the family!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Hey buddy!</Modal.Body>
-          <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose} to="/">
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleClose} >
-             <a id="savechang"href="/">Go to home page</a>
-            </Button>
-          </Modal.Footer>
-        </Modal>
+            <>
+            <div className="container-fluid col-md-6">
+                <Alert show={show} variant="success">
+                <p>
+                Welcome to MYtinerary!
+                </p>
+                <Alert.Heading > Find your next city</Alert.Heading>
+                <Button onClick={() => cerrar()} variant="outline-success">
+                            Close
+                </Button>
+                </Alert>
+            </div> 
+   </>
         );
     }
 export default RegisterSuccess;

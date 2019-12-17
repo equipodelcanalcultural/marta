@@ -1,37 +1,33 @@
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import {Modal} from 'react-bootstrap';
-import {Link} from 'react-router-dom'
+import Alert from 'react-bootstrap/Alert';
 
 const LoginError = (props) => {
 
     const [show, setShow] = useState(true);
+    let handleClose = () => { setShow(false); }
+    const handleShow = () => { setShow(true); }
 
-    const handleClose = () => setShow(false);
+    const cerrar = () => {
+        props.cleanForm()
+        setShow(false);
 
+    }
 
     return (
-    
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>ERROR</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>There was an error, please try again!</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose} to="/">
-              Try Again
-            </Button>
-            <Button variant="primary" onClick={handleClose} >
-             <a id="savechang"href="/">Go to home page</a>
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
-
-                
-          
-        
+        <>
+            <div className="container-fluid col-md-6">
+                <Alert show={show} variant="danger">
+                        <p>Can't Login!</p>
+                        <Alert.Heading >
+                            Check the id and/or password
+                        </Alert.Heading>
+                        <Button onClick={() => cerrar()} variant="outline-danger">
+                             Clean
+                        </Button>
+                </Alert>
+            </div>
+        </>
     );
 }
 export default LoginError;
-

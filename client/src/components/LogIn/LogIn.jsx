@@ -1,13 +1,13 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { getData } from "../../store/actions/reduxFetch";
+import { Link } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import LoginSuccess from '../Alerts/LoginSuccess';
 import LoginError from '../Alerts/LoginError';
 import {connect} from 'react-redux';
 import {userLoginFetch} from '../../store/actions/userActions';
-
 
 const responseGoogle = response => {
   console.log(response);
@@ -30,8 +30,8 @@ class LogIn extends Component {
 
   handleChange = async (event) =>{
     await this.setState({[event.target.name]:event.target.value});
-     if (this.state.username.length === 1|| 
-      this.state.password.length === 1) {this.setState({error: false})}
+     if (this.state.username.length==1|| 
+      this.state.password.length ==1) {this.setState({error: false})}
     }
 
   cleanForm = () => {
@@ -45,10 +45,10 @@ class LogIn extends Component {
     event.stopPropagation();
     await this.props.userLoginFetch(this.state)
     const { logged } = this.props;
-    if(logged === true){
+    if(logged == true){
       console.log("entra acá")
       this.setState({isLogged:true})
-    }else if(logged === false){
+    }else if(logged == false){
       console.log("entró")
       this.setState({error:true})
     }
@@ -70,11 +70,7 @@ class LogIn extends Component {
     );
   }
 
-
-
   render() {
-    console.log("props logged", this.props.logged)
-    console.log("islogged", this.state.isLogged)
     return (     
      <div>
       {this.state.isLogged ? <LoginSuccess {...this.props}/> : <div className=""></div>}

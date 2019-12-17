@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
-// import { getData } from "../../store/actions/reduxFetch";
+import { getData } from "../../store/actions/reduxFetch";
 import Button from 'react-bootstrap/Button'
 import RegisterSuccess from "../Alerts/RegisterSuccess";
 import RegisterError from "../Alerts/RegisterError";
@@ -24,9 +24,9 @@ class Register extends Component {
 
   handleChange = async (event) =>{
     await this.setState({[event.target.name]:event.target.value});
-    if (this.state.username.length=== 1|| 
-      this.state.password.length === 1||
-      this.state.email.length === 1) {this.setState({error: false})}
+    if (this.state.username.length==1|| 
+      this.state.password.length ==1||
+      this.state.email.length ==1) {this.setState({error: false})}
     }
 
   handleSubmit = async (event) => {
@@ -34,9 +34,9 @@ class Register extends Component {
     event.stopPropagation();
     await this.props.userPostFetch(this.state)
     const { created } = this.props;
-    if(created === true){
+    if(created == true){
       this.setState({isCreated:true})
-    }else if(created === false){
+    }else if(created == false){
       this.setState({error:true})
     }
   }
@@ -47,7 +47,7 @@ class Register extends Component {
              {this.state.isCreated ? <RegisterSuccess {...this.props}/> : <div className=""></div>}
              {this.state.error ? <RegisterError cleanForm={this.cleanForm }{...this.props}/> : <div className=""></div>}
 
-            <Form  className="justify-content col-8"  id="registerForm">
+            <Form  className="justify-content"  className="col-8 " id="registerForm">
 
       
                     <div className="align-items-center">          
