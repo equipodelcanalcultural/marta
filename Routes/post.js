@@ -110,7 +110,9 @@ postUser(userRegisterUri);
           username: req.body.username,
           email: req.body.email,
           profilePicture: req.body.profilePicture,
-          googleAccount: true
+          googleAccount: true,
+          logged: true,
+          created: true
         });
         newUser.save();
         res
@@ -124,7 +126,9 @@ postUser(userRegisterUri);
         res.send({
           success: true,
           msg: "Authentication succesful. User found.",
-          token: createJWTToken(user, secretOrKey, 604800)
+          token: createJWTToken(user, secretOrKey, 604800),
+          logged: true,
+          created: true
         });
       }
     });

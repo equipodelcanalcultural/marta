@@ -7,7 +7,7 @@ import GoogleLogin from "react-google-login";
 import LoginSuccess from '../Alerts/LoginSuccess';
 import LoginError from '../Alerts/LoginError';
 import {connect} from 'react-redux';
-import {userLoginFetch} from '../../store/actions/userActions';
+import {userLoginFetch, gmailLoginFetch} from '../../store/actions/userActions';
 
 const responseGoogle = response => {
   console.log(response);
@@ -110,7 +110,7 @@ class LogIn extends Component {
                 }
                 console.log(body);
 
-               this.handleGMailSubmit(body)
+               this.props.gmailLoginFetch(body)
 
               }}
               onFailure={responseGoogle}
@@ -123,7 +123,9 @@ class LogIn extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
+  userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo)),
+  gmailLoginFetch: userInfo => dispatch(gmailLoginFetch(userInfo))
+
 })
 
 const mapStateToProps = state => {

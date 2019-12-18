@@ -43,7 +43,33 @@ export const userPostFetch = user => {
       })   
     }
   }
-
+export const gmailLoginFetch = userData => {
+  return dispatch => {
+    getData(
+      "/logged",
+      {
+        method: "POST",
+        body: JSON.stringify(userData),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      },
+      (data) => { 
+        if(data.success===true) {
+          console.log("data",data)
+          localStorage.setItem("token", data.token)
+          dispatch(loginUser(data))
+       }else{
+         console.log("data",data)
+         localStorage.removeItem("token")
+         console.log(data.msg);
+       }  
+  }
+    );
+  
+  }
+ 
+}
   export const getUserFetch = () => {
     return dispatch => {
       const token = localStorage.token;
