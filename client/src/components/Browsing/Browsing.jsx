@@ -1,12 +1,21 @@
 import React from "react";
 import { Link} from "react-router-dom";
 import CarouselNav from "../Carousel/CarouselNav";
+import {connect} from 'react-redux';
 
-const browsing = ({ flecha }) => {
+
+const mapStateToProps = state => {
+  return {
+    user: state.user.currentUser.username
+  };
+};
+
+const browsing = ({ flecha, user }) => {
   return (
     <div className="container-fluid p-4">
+      
       <p>
-        Find your <span className={"cool-touch"}>perfect trip</span>, <br></br>
+        {user && <span>Hello <span className={"cool-touch"}>{user}</span>!</span>} Find your <span className={"cool-touch"}>perfect trip</span>, <br></br>
         designed by insiders who know and{" "}
         <span className={"cool-touch"}>love</span> their{" "}
         <span className={"cool-touch"}>cities</span>
@@ -20,4 +29,6 @@ const browsing = ({ flecha }) => {
   );
 };
 
-export default browsing;
+export default connect(
+  mapStateToProps,
+)(browsing);

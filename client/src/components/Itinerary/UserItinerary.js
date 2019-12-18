@@ -7,7 +7,7 @@ import PriceRange from "./PriceRange";
 import Comments from "./Comments";
 import Activities from "./Activities";
 import { Fragment } from "react";
-import { Accordion } from "react-bootstrap";
+import { Accordion, Button } from "react-bootstrap";
 // import AccordionContainer from "./AccordionContainer";
 import FaIconPack from "react-icons/lib/fa/arrow-circle-down";
 import CasaVicens from "../../Assets/itinerary_img/CasaVicens.jpg";
@@ -17,6 +17,8 @@ import manfan from "../../Assets/itinerary_img/manfan.jpeg";
 import mercado from "../../Assets/itinerary_img/mercado.jpeg";
 import IconButton from './IconButton';
 import CommentsContainer from './Comments/commentsContainer';
+import ItinerariesCarousel from './ItinerariesCarousel';
+import {getData} from '../../store/actions/reduxFetch';
 import {
   requestItineraries,
   requestItinerariesSuccess,
@@ -26,6 +28,7 @@ import {
   requestCommentsSuccess
 } from "../../store/actions/itineraryActions";
 import { reduxFetch } from "../../store/actions/reduxFetch";
+
 const mapStateToProps = state => {
   return {
     itineraries: state.itineraries.itineraries,
@@ -59,7 +62,26 @@ const mapDispatchToProps = dispatch => {
       )
   };
 };
+
+
 class UserItinerary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activities : [],
+      showComments: false
+
+    }
+  }
+ 
+
+
+/*componentDidMount() {
+  getData(`/api/itineraries/byTitle/${this.props.title}/activities`, null, data => {
+    this.setState({activities:data[0].activities})})
+
+}*/
+
   render() {
     const {
       username,
@@ -164,14 +186,19 @@ class UserItinerary extends Component {
                 </div>
               </Carousel> */}
             </div>
-          </div>
+          </div> 
+         
           <Accordion>
             <Accordion.Toggle className="toggleDeco" eventKey="0">
               {" "}
               <FaIconPack className="toggleDeco mr-2 row" font-size="7vh" />
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0">
-            <CommentsContainer logged={logged} user={user} title={title}/>
+              <Fragment>
+            <ItinerariesCarousel title={title}/>
+            <Button onClick={() => this.setState({showComments: !this.state.showComments})}>Comments</Button>
+            {this.state.showComments && <CommentsContainer logged={logged} user={user} title={title}/>}
+            </Fragment>
             </Accordion.Collapse>
           </Accordion>
         </div>
@@ -180,6 +207,7 @@ class UserItinerary extends Component {
     );
   }
 }
+
 const ReduxUserItinerary = connect(
   mapStateToProps,
   mapDispatchToProps

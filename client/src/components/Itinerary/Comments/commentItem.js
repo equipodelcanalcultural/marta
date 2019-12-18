@@ -40,7 +40,7 @@ const CommentItem = ({ title,
     editButton = (
       <button
         title={'Edit'}
-        onPress={() => {
+        onClick={() => {
           setElement(textBoxElement);
           console.log(id);
         }}
@@ -49,7 +49,7 @@ const CommentItem = ({ title,
       </button>
     );
     deleteButton = (
-      <button title={'Delete'} onPress={() => deleteThisComment(id)}> Delete </button>
+      <button title={'Delete'} onClick={() => deleteThisComment(id)}> Delete </button>
     );
   }
 
@@ -75,7 +75,7 @@ console.log('comment item', username)
         id={id}
       ></CommentInput>
       <button title={'Back'}
-        onPress={() => {
+        onClick={() => {
           setElement(commentElement);
         }}
       >
@@ -88,7 +88,7 @@ console.log('comment item', username)
 
   if (showSomething) {
     algoParaMostrar = (<div>
-      <h6>anonymous</h6>
+      <h6>{username}</h6>
       {element}
     </div>)
   }

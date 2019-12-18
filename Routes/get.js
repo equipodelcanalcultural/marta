@@ -71,7 +71,8 @@ const genericGetAll = (uri, model) => {
           likes: 1,
           rating: 1,
           hashtags: 1,
-          duration: 1
+          duration: 1,
+          activities: 1
         }
       )
       .then(itinerario => res.json(itinerario));

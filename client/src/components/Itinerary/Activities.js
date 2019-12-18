@@ -1,28 +1,18 @@
 import React from "react";
-import { Component } from "react";
-
+import { Component, Fragment } from "react";
+import ItinerariesCarousel from './ItinerariesCarousel'
 
 class Activities extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: []
-    };
-  }
-  componentDidMount() {
-    console.log("MOUNTED");
-    getData(`/api/itineraries/byTitle/${this.props.title}`, null, data => {
-      this.setState({items:data});
-    });
-  }
   render() {
-    console.log(this.state.items);
-    let conditionalRender;
+    console.log(this.props.items);
+    /*let conditionalRender;
     if (!this.state.items) {
     conditionalRender = this.state.items[0].activities
       console.log(conditionalRender);
-    }
-    return <div>{conditionalRender && conditionalRender.map(item => <h6>{item}</h6>)} </div>;
+    }*/
+    return <Fragment> 
+    <ItinerariesCarousel items={this.props.items}></ItinerariesCarousel>
+    </Fragment>;
   }
 }
 
@@ -30,7 +20,7 @@ const getData = async (url, init, callback) => {
   const response = await fetch(url, init);
   const data = await response.json();
   const call = await callback(data);
-  console.log(data);
+
 
   return call;
 };
