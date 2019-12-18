@@ -109,7 +109,7 @@ console.log(props, "adentro de commentContainer")
     commentTextBox = (
       <div>
 
-        <Link to='Login'>
+        <Link to="/LogIn">
         Log in to comment
         </Link>
       </div>

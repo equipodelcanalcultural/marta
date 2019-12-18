@@ -11,8 +11,12 @@ import {getData} from '../../store/actions/reduxFetch';
 const ItinerariesCarousel = ({title}) => {
 const [activities, setActivities] = useState();
 
-useEffect(() => getData(`/api/itineraries/byTitle/${title}/activities`, null, data => {
-    setActivities(data[0].activities)}), [])
+const getActivities = (target) => {
+    getData(`/api/itineraries/byTitle/${target}/activities`, null, data => {
+        setActivities(data[0].activities)})
+}
+
+useEffect(() => getActivities(title) , [])
 
    const defaultImages = [pareja, unbar, manfan, mercado, CasaVicens];
    const randomNumber = () => Math.floor(Math.random()*4);
@@ -44,8 +48,5 @@ console.log(activities)
     );
 };
 
-ItinerariesCarousel.propTypes = {
-    
-};
 
 export default ItinerariesCarousel;

@@ -190,12 +190,11 @@ class UserItinerary extends Component {
          
           <Accordion>
             <Accordion.Toggle className="toggleDeco" eventKey="0">
-              {" "}
               <FaIconPack className="toggleDeco mr-2 row" font-size="7vh" />
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0">
               <Fragment>
-            <ItinerariesCarousel title={title}/>
+            <ItinerariesCarousel title={title} />
             <Button onClick={() => this.setState({showComments: !this.state.showComments})}>Comments</Button>
             {this.state.showComments && <CommentsContainer logged={logged} user={user} title={title}/>}
             </Fragment>

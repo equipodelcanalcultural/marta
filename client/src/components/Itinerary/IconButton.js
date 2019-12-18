@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getData } from "../../store/actions/reduxFetch";
 import { Button } from "react-bootstrap";
-import Octicon, { Thumbsup, Thumbsdown } from "@primer/octicons-react";
-import Heart from "./Heart";
+import Octicon from "@primer/octicons-react";
+import Heart from './Heart'
+import EmptyHeart from "react-icons/lib/fa/heart-o";
 
 const mapStateToProps = state => {
   return {
@@ -59,7 +60,9 @@ const IconButton = ({ title, logged, user, itinLiked, itineraries }) => {
     if (logged) { 
       likeButton = ( <Heart callback={request} positivo={polaridades.positivo
       } negativo={polaridades.negativo} />)
-    } else {likeButton = <span>Login to like</span>}
+    } else {likeButton =   <span style={{color:"grey"}} className="" >
+    <Octicon icon={EmptyHeart} />
+  </span>}
   
    
 

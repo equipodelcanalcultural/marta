@@ -17,22 +17,24 @@ const Heart = ({ callback, positivo, negativo }) => {
   let heart;
   let icons;
   if (positivo == 'likes') {
-    icons = {positivo: Thumbsup, negativo: Thumbsdown}
-  } else {icons = {positivo: Thumbsdown, negativo: Thumbsup} }
+    icons = {positivo: EmptyHeart, negativo: FullHeart}
+  } else {icons = {positivo: FullHeart, negativo: EmptyHeart} }
   if (like == true) {
     heart = (
-      <Button className="" onClick={() => handleClick(negativo)}>
+      <span style={{color:"red"}} className="" onClick={() => handleClick(negativo)}>
         <Octicon icon={icons.negativo} />
-      </Button>
+      </span>
     );
   } else {
     heart = (
-      <Button className="" onClick={() => handleClick(positivo)}>
-        <Octicon icon={icons.positivo} size="small" />
-      </Button>
+      <span style={{color:"red"}}  className="" onClick={() => handleClick(positivo)}>
+        <Octicon icon={icons.positivo} size="small"/>
+      </span>
     );
   }
-  return <>{heart}</>;
+  return <>{heart}
+
+  </>;
 };
 
 export default Heart;
