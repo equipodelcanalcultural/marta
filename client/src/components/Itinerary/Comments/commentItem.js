@@ -17,8 +17,12 @@ function CommentItem ({ title,
 
 
     const updateThisComment = async (input, targetId) => {
-     setTextoParaMostrar(input);
-     updateComment(input, targetId);
+      if (input) {
+    setTextoParaMostrar(input);
+    updateComment(input, targetId);
+      } 
+      else 
+      setElement(commentElement)
     }
 
     const deleteThisComment = (targetId) => {
@@ -69,7 +73,7 @@ function CommentItem ({ title,
     <div className="row justify-content-center">
       <CommentInput
         title={title}
-        placeholder={text}
+        placeholder={textoParaMostrar}
         callback={updateThisComment}
         id={id}
       ></CommentInput>
