@@ -25,6 +25,7 @@ const {callback, placeholder, id} = props
             event.preventDefault();
             event.stopPropagation();
             callback(textInput,id);
+            setTextInput('');
           }
         }
       >

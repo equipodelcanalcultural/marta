@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 import CommentInput from './commentInput';
 
-function CommentItem ({ title,
+function CommentItemBackup ({ title,
   username,
   text,
   id,
@@ -103,4 +103,4 @@ function CommentItem ({ title,
   );
 };
 
-export default CommentItem;
+export default CommentItemBackup;

@@ -63,7 +63,7 @@ router.put("/api/itineraries/byTitle/:title/comments", async (req, res) => {
     { title: req.params.title },
     { $push: {comments: comment }}
   )
-  res.json("OK");
+  res.json(comment);
 });
 
 

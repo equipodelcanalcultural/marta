@@ -10,7 +10,9 @@ var target = ObjectId(req.params.id)
       { title: req.params.title}, 
       { $pull: {comments: {id: target }}}
     )
-    res.json("OK");
+    let updated = await itinerary.find({title: req.params.title}, {_id: 0, comments: 1})
+
+    res.json(updated[0].comments);
   });
 
   
