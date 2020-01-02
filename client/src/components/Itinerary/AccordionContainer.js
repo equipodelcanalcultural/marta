@@ -1,9 +1,5 @@
 import React from "react";
-import CarouselNav from "../Carousel/CarouselNav";
 import { Component } from "react";
-import Accordion from "react-bootstrap/Accordion";
-import Activities from "./Activities";
-import Comments from "./Comments";
 import AccordionComponent from './AccordionComponent';
 
 class AccordionContainer extends Component {
@@ -19,7 +15,6 @@ class AccordionContainer extends Component {
   
   render() {
 
-    const { accordionKey } = this.props;
    
     console.log(this.state.toggle)
     return (
@@ -28,12 +23,5 @@ class AccordionContainer extends Component {
     );
   }
 }
-const getData = async (url, init, callback) => {
-  const response = await fetch(url, init);
-  const data = await response.json();
-  const call = await callback(data);
-
-  return call;
-};
 
 export default AccordionContainer;

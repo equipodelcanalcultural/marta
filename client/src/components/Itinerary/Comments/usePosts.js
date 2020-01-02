@@ -4,17 +4,7 @@ import { getData } from "../../../store/actions/reduxFetch";
 export default function usePosts(title, user, input, id) {
   const [posts, setPosts] = useState();
 
-  const getComments = () => {
-    getData(
-      `/api/itineraries/byTitle/${title}/comments`,
-      null,
-      data => {
-        setPosts(data.comments[0].comments);
-        console.log(data + " hola");
-      },
-      data => setPosts(data)
-    );
-  };
+ 
 
   const createComment = input => {
     getData(
@@ -73,8 +63,19 @@ export default function usePosts(title, user, input, id) {
   };
 
   useEffect(() => {
+    const getComments = () => {
+      getData(
+        `/api/itineraries/byTitle/${title}/comments`,
+        null,
+        data => {
+          setPosts(data.comments[0].comments);
+          console.log(data + " hola");
+        },
+        data => setPosts(data)
+      );
+    };
     getComments();
-  }, []);
+  }, [title]);
   useEffect(() => console.log(posts), [posts]);
 
   return [posts, createComment, updateComment, deleteComment];

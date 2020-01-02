@@ -4,21 +4,13 @@ import ProfilePicture from "./ProfilePicture";
 // import Likes from "./Likes";
 import Duration from "./Duration";
 import PriceRange from "./PriceRange";
-import Comments from "./Comments";
-import Activities from "./Activities";
 import { Fragment } from "react";
 import { Accordion, Button } from "react-bootstrap";
 // import AccordionContainer from "./AccordionContainer";
 import FaIconPack from "react-icons/lib/fa/arrow-circle-down";
-import CasaVicens from "../../Assets/itinerary_img/CasaVicens.jpg";
-import pareja from "../../Assets/itinerary_img/pareja.jpeg";
-import unbar from "../../Assets/itinerary_img/unbar.jpeg";
-import manfan from "../../Assets/itinerary_img/manfan.jpeg";
-import mercado from "../../Assets/itinerary_img/mercado.jpeg";
 import IconButton from './IconButton';
 import CommentsContainer from './Comments/commentsContainer';
 import ItinerariesCarousel from './ItinerariesCarousel';
-import {getData} from '../../store/actions/reduxFetch';
 import {
   requestItineraries,
   requestItinerariesSuccess,
@@ -87,30 +79,12 @@ class UserItinerary extends Component {
       username,
       userimage,
       title,
-      likes,
       duration,
       priceRange,
       hashtags,
-      comments,
-      action,
-      city,
       logged,
       user
     } = this.props;
-    // const { requestActivities } = this.props;
-    // const { myActivities } = this.props;
-    // let renderOnClick;
-    const divStyle = {
-      maxWidth: "100%",
-      height: "20vw",
-      overflow: "hidden",
-      padding: "0"
-    };
-    const imgStyle = {
-      height: "100%",
-      width: "100%",
-      objectFit: "cover"
-    };
     return (
       <Fragment>
         <div id="itineraryContainer" className="container rounded mt-1 p-2">
